@@ -1,0 +1,248 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{afterpage}
+\usepackage{listings}
+\usepackage{graphicx}
+\graphicspath{ {imagenes/} }
+\begin{document}
+\begin{LARGE}
+\begin{center}
+
+Instituto Politécnico Nacional
+
+\bigskip
+\bigskip
+
+Escuela Superior de Cómputo
+
+\bigskip
+\bigskip
+
+Gonzalez Mora Javier
+
+\bigskip
+\bigskip
+
+Sistemas operativos
+
+\bigskip
+\bigskip
+
+2CM7
+
+
+\end{center}
+\end{LARGE}
+
+\newpage
+
+\begin{center}
+
+Indice
+
+\end{center}
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+Explicacion teorica .............................................................3
+
+\bigskip
+
+Programas utilizados...........................................................4
+
+\bigskip
+
+Desarrollo de la practica......................................................5
+
+\bigskip
+
+Errores y soluciones.............................................................9
+
+\bigskip
+
+\end{flushleft}
+
+\bigskip
+\bigskip
+
+\bigskip
+
+\newpage
+
+
+
+
+\begin{center}
+
+Practica 4
+
+\end{center}
+
+\begin{center}
+
+
+Algoritmo de Round-robin
+
+
+\bigskip
+
+Round-robin es un método para seleccionar todos los abstractos en un grupo de manera equitativa y en un orden racional, normalmente comenzando por el primer elemento de la lista hasta llegar al último y empezando de nuevo desde el primer elemento. El nombre del algoritmo viene del principio de Round-Robin conocido de otros campos, donde cada persona toma una parte de un algo compartido en cantidades, es decir, "toma turnos". En operaciones computacionales, un método para ejecutar diferentes procesos de manera concurrente, para la utilización equitativa de los recursos del equipo, es limitando cada proceso a un pequeño período (quantum), y luego suspendiendo este proceso para dar oportunidad a otro proceso y así sucesivamente.
+\bigskip
+
+
+\bigskip
+
+
+
+
+\bigskip
+\bigskip
+
+\end{center}
+
+
+
+
+\newpage
+
+\begin{center}
+Programas utilizados y como fueron utilizados
+\end{center}
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+\begin{itemize}
+\item interprete de python: Se encarga de procesar el código y hace posible que nuestro ordenador ejecute las acciones en él descritas. Podemos decir que un intérprete es un tipo de programa que ejecuta código directamente, es decir, sin necesidad de compilarlo antes. correr.
+\end{itemize}
+\end{flushleft}
+
+\newpage
+
+\begin{center}
+Desarrollo de la practica
+\end{center}
+
+\bigskip
+\bigskip
+
+
+
+\begin{center}
+Se hizo un programa en el lenguaje python el cual consistia en simular el algoritmo de round-robin:
+\medskip
+Punto 1)
+Cada proceso imprime en pantalla "soy el proceso n" tantas vecs como ciclo de reloj le toca ejecutarse.
+\medskip
+Punto 2)
+El numero, hora de llegada y duracion de cada proceso son entradas del usuario(el tamaño de Chunk).
+\medskip
+Punto 3)
+Cada proceso debe imprimir "No.P aqui estoy" al ser planificado por primera vez y "No.P adios" al terminar su ejecucion.
+\medskip
+Punto 4)
+Se debe imprimir en cada planificacion la lista de procesos.
+\medskip
+Punto 5)
+La lista de procesos se debe programar como una biblioteca.
+\bigskip
+
+
+\begin{flushleft}
+Biblioteca de la cola:
+
+\bigskip
+\bigskip
+
+\lstinputlisting[basicstyle=\footnotesize]{../Practica3/src/inciso1/practica3.c}
+\end{flushleft}
+
+\bigskip
+\bigskip
+
+\end{center}
+\begin{center}
+
+\end{center}
+
+\newpage
+
+\begin{center}
+
+
+\begin{flushleft}
+Codigo del Round-robin:
+\end{flushleft}
+\bigskip
+\bigskip
+\begin{flushright}
+
+
+\lstinputlisting[basicstyle=\footnotesize, breaklines=true,  numbersep=2pt]{../Practica3/src/inciso2/pro2.c}
+
+\end{flushright}
+
+
+\bigskip
+
+\end{center}
+\begin{center}
+
+\bigskip
+
+Pantalla de resultados del inciso 2:
+
+\bigskip
+
+Inicio del proceso:
+
+\bigskip
+
+\includegraphics[scale=.3]{21.png}
+
+\bigskip
+
+\end{center}
+
+\newpage
+
+\begin{center}
+Inciso 3: Al igual que en el inciso 1 este programa se modifica para que atienda una señal del sistema operativo
+
+\medskip
+Señal del sistema operativo:
+
+\medskip
+
+
+\begin{flushleft}
+
+\includegraphics[scale=.3]{31.png}
+
+\bigskip
+
+Se manda la señal control + c y se detiene:
+
+\medskip
+
+\includegraphics[scale=.3]{32.png}
+
+\bigskip
+
+
+\end{center}
+
+\begin{center}
+Problemas que se presentaron: 
+
+Ninguno
+
+
+\bigskip
+
+\end{center}
+
+\end{document}
