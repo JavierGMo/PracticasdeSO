@@ -1,0 +1,318 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{afterpage}
+\usepackage{listings}
+\usepackage{graphicx}
+\graphicspath{ {imagenes/} }
+\begin{document}
+\begin{LARGE}
+\begin{center}
+
+Instituto Politécnico Nacional
+
+\bigskip
+\bigskip
+
+Escuela Superior de Cómputo
+
+\bigskip
+\bigskip
+
+Gonzalez Mora Javier
+
+\bigskip
+\bigskip
+
+Sistemas operativos
+
+\bigskip
+\bigskip
+
+2CM7
+
+
+\end{center}
+\end{LARGE}
+
+\newpage
+
+\begin{center}
+
+Indice
+
+\end{center}
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+Explicacion teorica .............................................................3
+
+\bigskip
+
+Programas utilizados...........................................................4
+
+\bigskip
+
+Desarrollo de la practica......................................................5
+
+\bigskip
+
+Errores y soluciones.............................................................9
+
+\bigskip
+
+\end{flushleft}
+
+\bigskip
+\bigskip
+
+\bigskip
+
+\newpage
+
+
+
+
+\begin{center}
+
+Practica 3
+
+\end{center}
+
+\begin{center}
+
+
+Process ID
+
+
+\bigskip
+
+El identificador de procesos es un numero entero usado por el kernel de algunos sistemas operativos para identificar un proceso.
+Para asignar el process id, el kernel utiliza internamente una variable global que se va incrementando con cada nuevo proceso creado con una llamada fork(). Cuando la varible alcanza un cierto valor limite se empieza otra vez desde 0, buscando numeros que no esten asignados ya otro proceso en ejecucion.
+
+\bigskip
+
+Señales del sistema operativo.
+
+\bigskip
+
+Las señales son un mecanismo para comunicar eventos a los procesos.
+Cuando un proceso recibe una señal, la procesa inmediatamente.
+
+
+\bigskip
+
+Cuando un proceso recibe una señal puede:
+\begin{flushleft}
+\begin{itemize}
+\item Ignorar a la señal, cuando es inmune a la misma.
+\item Invocar la rutina de tratamiento por defecto.
+\item Invocar a una rutina de tratamiento propia.
+\end{itemize}
+\end{flushleft}
+
+\bigskip
+
+\end{center}
+
+
+
+
+\newpage
+
+\begin{center}
+Programas utilizados y como fueron utilizados
+\end{center}
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+\begin{itemize}
+\item gcc: Es un compilador integrado del proyecto GNU para C, C++, Objective C y Fortran; es capaz de recibir un programa fuente en cualquier de estos lenguajes y generar un programa ejecutable binario en el lenguaje de la maquina donde ha de correr.
+\item Doxygen: Doxygen es la herramienta estándar para generar documentación a partir de fuentes C ++, pero también es compatible con otros lenguajes de programación populares como C, Objective-C, C #, PHP, Java, Python, IDL (Corba, Microsoft y UNO / OpenOffice). ), Fortran, VHDL, Tcl, y hasta cierto punto D.
+\item genisoimage: Se uso para poder generar la imagen ISO, la cual fue creada con el codigo en NASM.
+\end{itemize}
+\end{flushleft}
+
+\newpage
+
+\begin{center}
+Desarrollo de la practica
+\end{center}
+
+\bigskip
+\bigskip
+
+
+
+\begin{center}
+1) Se hizo un programa en el lenguaje C el cual consistia en hacer un bucle infinito el cual muestra un mensaje "Aqui estoy" junto con el process id.
+Para obtener el process id se uso system("pidof ./practica3");
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+Codigo del bootloader que escribe en pantalla por medio de interrupcion:
+
+\bigskip
+\bigskip
+
+\lstinputlisting{../../src/bootloaderesc.asm}
+\end{flushleft}
+
+\bigskip
+\bigskip
+
+\end{center}
+\begin{center}
+
+\bigskip
+\bigskip
+
+\newpage
+
+Instruccion para compilar y generar el archivo.bin: nasm src/bootloaderesc.asm -f bin -o  bin/bootloaderesc.bin
+
+\bigskip
+\end{center}
+\begin{center}
+Se crea un disco con el cargador:
+
+Se crea un floppy disk:
+
+Instrucciones: 
+\bigskip
+
+dd if=/dev/zero of=imagenes/bootloaderesc.flp bs=1024 count=1440
+
+\bigskip
+
+dd if=bin/bootloaderesc.bin of=imagenes/bootloaderesc.flp seek=0 count=1 conv=notrunc
+
+\bigskip
+
+Se corre el bootloader
+
+\bigskip
+
+Instrucciones:
+
+\bigskip
+
+qemu-system-i386 -fda imagenes/bootloaderesc.flp
+
+\bigskip
+
+Pantalla de resultados haciendo uso de interrupciones:
+
+\bigskip
+
+\includegraphics[scale=.3]{int1.png}
+
+\bigskip
+
+\end{center}
+
+\newpage
+
+\begin{center}
+Se hizo uso NASM para compilar el codigo del archivo bootloaderlet.asm que posteriormente se generaria un archivo bootloaderlet.bin. Lo que hace el bootloader es escribir directamente en memoria de video haciendo uso de registros de proposito general caracter por caracter, despues se rellena de ceros hasta una longitud de 512 bytes, despues se coloca el MAGICK NUMBER en la posición 521 y 522.
+
+\bigskip
+\bigskip
+
+\begin{flushleft}
+Codigo del bootloader que escribe directamente en la memoria de video:
+
+\bigskip
+\bigskip
+
+\lstinputlisting{../../src/bootloaderlet.asm}
+\end{flushleft}
+
+
+Instruccion para compilar y generar el archivo.bin: nasm src/bootloaderlet.asm -f bin -o  bin/bootloaderlet.bin
+
+\bigskip
+\end{center}
+\begin{center}
+Se crea un disco con el cargador:
+
+Se crea un floppy disk:
+
+Instrucciones: 
+\bigskip
+
+dd if=/dev/zero of=imagenes/bootloaderlet.flp bs=1024 count=1440
+
+\bigskip
+
+dd if=bin/bootloaderlet.bin of=imagenes/bootloaderlet.flp seek=0 count=1 conv=notrunc
+
+\bigskip
+
+Se corre el bootloader
+
+\bigskip
+
+Instrucciones:
+
+\bigskip
+
+qemu-system-i386 -fda imagenes/bootloaderlet.flp
+
+\bigskip
+
+Pantalla de resultados haciendo uso de la memoria de video:
+
+\bigskip
+
+\includegraphics[scale=.3]{memoria.png}
+
+\bigskip
+
+
+
+
+\end{center}
+\newpage
+
+
+
+\begin{center}
+Problemas que se presentaron: 
+
+Ninguno
+
+
+\bigskip
+
+\end{center}
+\begin{center}
+Bibliografia:
+pidof linux:
+https://www.cyberciti.biz/faq/linux-pidof-command-examples-find-pid-of-program/
+Señales del sistema operativo:
+http://sopa.dis.ulpgc.es/progsis/material-didactico-teorico/tema4_1transporpagina.pdf
+Reloj y pausas en C:
+https://cavtha.wordpress.com/2013/10/19/reloj-y-pausa-en-c/
+time.h:
+http://docs.mis-algoritmos.com/c.ref.time.h.html
+Señales en C:
+https://nideaderedes.urlansoft.com/2013/03/11/senales-en-c-contador-de-ctrlc-ejemplo-de-sigint/
+Tratamiento de señales:
+https://sites.google.com/site/sogrupo15/1-tratamiento-de-seales
+Signal C:
+http://manpages.ubuntu.com/manpages/bionic/es/man7/signal.7.html
+SIG_DFL, SIG_IGN:
+https://en.cppreference.com/w/c/program/SIG_strategies
+getppid():
+https://stackoverflow.com/questions/15183427/getpid-and-getppid-return-two-different-values
+int to char[]:
+https://www.allegro.cc/forums/thread/588784
+\end{center}
+
+\end{document}

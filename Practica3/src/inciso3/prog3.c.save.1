@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <time.h>
+#include <string.h>
+
+int pid = 0;
+
+void parar();
+
+int main(int argc, char *argv[]){
+	while(1){
+		printf("Aqui estoy \n");
+		printf("Proceso: %d \n", getpid());
+		pid = (int)getpid();
+		signal(SIGINT, parar);
+		sleep(3);
+	}
+	return 0;
+}
+
+void parar(){
+	signal(SIGINT, SIG_IGN);
+	printf("\n Terminacion por interrupcion del S.O. \n");
+	char cmm[18] =  "kill -9 ";
+	itoa(pid, cmm, 10);
+	system(cmm);
+	signal(SIGINT, parar);
+}

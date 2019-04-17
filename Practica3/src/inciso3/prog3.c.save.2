@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <time.h>
+
+
+
+void parar();
+
+int main(int argc, char *argv[]){
+	while(1){
+		printf("Aqui estoy \n");
+		printf("Proceso: %d \n", getpid());
+		signal(SIGINT, parar);
+		sleep(3);
+	}
+	return 0;
+}
+
+void parar(){
+	signal(SIGINT, SIG_IGN);
+	printf("\n Terminacion por interrupcion del S.O. \n");
+	system("^");
+	signal(SIGINT, parar);
+}
